@@ -62,13 +62,15 @@
     <script>
         window.addEventListener('keyup', event => {
             const key = event.keyCode;
-            const audioElement = document.querySelectorAll(`audio[data-key = '${key}']`);
-            if (audioElement.length >= 1) {
-                document.querySelectorAll(`[data-key = '${key}']`)[0].classList.add('playing');
-                audioElement[0].play();
+            const audioElement = document.querySelector(`audio[data-key = '${key}']`);
+            const keyElement = document.querySelector(`.key[data-key = '${key}']`);
+            if (audioElement) {
+                keyElement.classList.add('playing');
+                audioElement.currentTime = 0;   //rewind the play time to 0 so that we can play the same key faster 
+                audioElement.play();
                 setTimeout(() => {
-                    document.querySelectorAll(`[data-key = '${key}']`)[0].classList.remove('playing');
-                }, 400);
+                    keyElement.classList.remove('playing');
+                }, 100);
 
             }
 
